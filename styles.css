@@ -377,10 +377,19 @@ a {
     font-size: clamp(48px, 8vw, 90px);
     font-weight: 500;
     line-height: 1.05;
-    margin-bottom: var(--spacing-8);
+    margin-bottom: var(--spacing-6);
     color: var(--color-gray-900);
     text-align: center;
     letter-spacing: -0.03em;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--color-gray-600);
+    max-width: 800px;
+    margin: 0 auto var(--spacing-8) auto;
+    line-height: 1.6;
+    text-align: center;
 }
 
 /* Striped Text Effect */
@@ -434,6 +443,11 @@ a {
     font-size: var(--font-size-2xl);
     color: var(--color-gray-500);
     white-space: nowrap;
+    transition: color var(--transition-base);
+}
+
+.featured-badge:hover span {
+    color: var(--color-gray-900);
 }
 
 .featured-logo {
@@ -629,6 +643,14 @@ a {
 
 .case-study-card:hover .case-study-image img {
     transform: scale(1.03);
+}
+
+.case-study-card-large .case-study-image img {
+    transform: scale(1.45);
+}
+
+.case-study-card-large:hover .case-study-image img {
+    transform: scale(1.5);
 }
 
 .case-study-arrow {
