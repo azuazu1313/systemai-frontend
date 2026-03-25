@@ -697,7 +697,7 @@ a {
     background: var(--color-black);
 }
 
-.case-study-card:not(.case-study-card-large) .case-study-image img {
+.case-study-card:not(.case-study-card-large) .case-study-image > img {
     object-fit: cover;
 }
 
@@ -706,23 +706,23 @@ a {
     background-color: #263237;
 }
 
-.case-study-image img {
+.case-study-image > img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     transition: transform var(--transition-slow);
 }
 
-.case-study-card:hover .case-study-image img {
+.case-study-card:hover .case-study-image > img {
     transform: scale(1.03);
 }
 
-.case-study-card-large .case-study-image img {
+.case-study-card-large .case-study-image > img {
     transform: scale(1.05);
     /* reduced from 1.45 to add padding/fit better */
 }
 
-.case-study-card-large:hover .case-study-image img {
+.case-study-card-large:hover .case-study-image > img {
     transform: scale(1.10);
     /* reduced from 1.5 to match the new base scale */
 }
@@ -731,30 +731,60 @@ a {
     position: absolute;
     bottom: var(--spacing-4);
     left: var(--spacing-4);
-    width: 40px;
-    height: 40px;
+    width: 72px;
+    height: 72px;
+    z-index: auto;
+    opacity: 1;
+}
+
+.case-study-arrow .btn-icon-box {
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-white);
-    border-radius: var(--border-radius-full);
-    color: var(--color-gray-900);
+    background: #1c1c20;
+    color: rgb(255, 255, 255);
+    border-radius: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    border: none;
+    font-family: "DM Sans", Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 41.6px;
+    letter-spacing: normal;
+    text-align: start;
     transition: all var(--transition-base);
-    transform: scale(1) rotate(0deg);
 }
 
-.case-study-card:hover .case-study-arrow {
-    transform: scale(1.1) rotate(0deg);
-    background: var(--color-black);
-    color: var(--color-white);
+.case-study-card:hover .case-study-arrow .btn-icon-box {
+    transform: scale(1.1);
 }
 
-.case-study-arrow svg {
-    transition: transform var(--transition-base);
+/* Diagonal Animation Overrides for Case Study Arrows */
+.case-study-arrow .btn-icon,
+.case-study-arrow .btn-icon-hover {
+    width: 100%;
+    height: 100%;
+    position: absolute; /* Already in global, but good to be explicit if needed */
 }
 
-.case-study-card:hover .case-study-arrow svg {
-    transform: translate(2px, -2px);
+.case-study-arrow .btn-icon {
+    transform: translate(0, 0);
+}
+
+.case-study-arrow .btn-icon-hover {
+    transform: translate(-150%, 150%); /* Bottom-left hidden */
+}
+
+.case-study-card:hover .case-study-arrow .btn-icon {
+    transform: translate(150%, -150%); /* Top-right exit */
+}
+
+.case-study-card:hover .case-study-arrow .btn-icon-hover {
+    transform: translate(0, 0); /* Center enter */
 }
 
 .case-study-name {
@@ -1080,21 +1110,55 @@ a {
 
 .footer-content {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     gap: var(--spacing-6);
-    text-align: center;
+    padding: 0 clamp(40px, 11.11vw, 200px); /* Responsive padding to maintain 160px margin at 1440p */
+    position: relative;
+}
+
+@media (max-width: 991px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--spacing-8);
+    }
+}
+
+.footer-logo {
+    display: block;
+    width: clamp(204px, 18.88vw, 272px);
+    height: auto;
+    overflow: clip;
+    opacity: 1;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    flex-shrink: 0;
 }
 
 .footer-logo img {
-    height: 28px;
-    width: auto;
+    width: 100%;
+    height: auto;
     filter: brightness(0) invert(1);
+    display: block;
 }
 
 .footer-links {
     display: flex;
     gap: var(--spacing-8);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media (max-width: 991px) {
+    .footer-links {
+        position: static;
+        transform: none;
+    }
 }
 
 .footer-links a {
@@ -1108,6 +1172,14 @@ a {
 
 .copyright {
     font-size: var(--font-size-xs);
+    white-space: nowrap;
+    text-align: right;
+}
+
+@media (max-width: 991px) {
+    .copyright {
+        text-align: center;
+    }
 }
 
 /* ===== Responsive Design ===== */
