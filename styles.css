@@ -205,6 +205,15 @@ a {
     }
 }
 
+/* Override common-wrap padding inside the header for precise inner width control.
+   Target: header-inner = 1328.8px at 1920px viewport.
+   Total padding = 1920 - 1328.8 = 591.2px → 295.6px per side ≈ 15.396vw.
+   clamp: floor at 1.5rem (mobile), ideal 15.396vw, ceil at 295.6px (≥ 1920px). */
+.header .common-wrap {
+    padding-left: clamp(1.5rem, 15.396vw, 295.6px);
+    padding-right: clamp(1.5rem, 15.396vw, 295.6px);
+}
+
 .header {
     width: 100%;
     font-family: "DM Sans", Arial, sans-serif;
@@ -223,9 +232,17 @@ a {
 }
 
 .header-inner {
+    font-family: "DM Sans", Arial, sans-serif;
+    font-weight: 400;
+    line-height: 130%;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
 }
 
@@ -1514,25 +1531,38 @@ a {
 
 /* ===== Case Study Hero Section ===== */
 .cs-hero {
-    padding: 0 5em;
+    /* Horizontal padding matches header for consistent 1328.8px inner width at 1920px */
+    padding: 0 clamp(1.5rem, 15.396vw, 295.6px);
     margin-top: 0;
     background: transparent;
-    font-family: 'DM Sans', Arial, sans-serif;
-    font-size: 1.25vw;
     box-sizing: border-box;
 }
 
 .cs-hero__container {
+    /* User-specified styles */
     display: flex;
-    gap: 0;
+    gap: 1em;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: #f0f0f2;
+    font-size: 16px;
+    font-family: "DM Sans", Arial, sans-serif;
+    font-weight: 400;
+    line-height: 130%;
+    -webkit-font-smoothing: antialiased;
+    --white: #fff;
+    --black: #000;
+    /* Layout properties */
     align-items: stretch;
     max-width: 100%;
-    margin: 0 auto;
     border-radius: 0.75em;
     overflow: hidden;
-    /* height = (viewport − 2×5em padding) × 0.714 (image col %) × 0.746 (aspect ratio) */
-    height: calc((100vw - 10em) * 0.532644);
-    box-sizing: border-box;
+    /* Height fills viewport minus header and a proportional bottom gap.
+       Header height ≈ 2×0.85× header-font-size + inner(~41px)
+       = clamp(81.8px, calc(3.777vw + 41px), 95.4px)
+       Bottom gap ≈ 23px at ~812px viewport height = 2.83vh */
+    height: calc(100svh - clamp(81.8px, calc(3.777vw + 41px), 95.4px) - clamp(0.75rem, 2.83vh, 1.5rem));
 }
 
 /* Left column — text block */
@@ -1584,7 +1614,6 @@ a {
 /* Responsive — stack on narrow viewports */
 @media (max-width: 768px) {
     .cs-hero {
-        font-size: 16px;
         padding: 0 var(--spacing-6);
     }
 
