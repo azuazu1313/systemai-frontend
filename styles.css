@@ -749,13 +749,13 @@ a {
 }
 
 .case-study-card-large .case-study-image>img {
-    transform: scale(1.05);
-    /* reduced from 1.45 to add padding/fit better */
+    transform: scale(0.85);
+    /* Reduced scale to ensure the SVG fits comfortably with padding */
 }
 
 .case-study-card-large:hover .case-study-image>img {
-    transform: scale(1.10);
-    /* reduced from 1.5 to match the new base scale */
+    transform: scale(0.90);
+    /* Subtle hover scale effect */
 }
 
 .case-study-arrow {
