@@ -205,13 +205,12 @@ a {
     }
 }
 
-/* Override common-wrap padding inside the header for precise inner width control.
-   Target: header-inner = 1328.8px at 1920px viewport.
-   Total padding = 1920 - 1328.8 = 591.2px → 295.6px per side ≈ 15.396vw.
-   clamp: floor at 1.5rem (mobile), ideal 15.396vw, ceil at 295.6px (≥ 1920px). */
+/* Override common-wrap padding inside the header:
+   header-inner width is now controlled directly via vw on .header-inner.
+   Padding here just provides a mobile fallback gutter. */
 .header .common-wrap {
-    padding-left: clamp(1.5rem, 15.396vw, 295.6px);
-    padding-right: clamp(1.5rem, 15.396vw, 295.6px);
+    padding-left: var(--spacing-6);
+    padding-right: var(--spacing-6);
 }
 
 .header {
@@ -231,6 +230,9 @@ a {
     align-items: center;
 }
 
+/* Inner header sizing:
+   Width  → calc(87.5vw - 15px)  = 2225px @2560vp, 1665px @1920vp
+   Height → 2.649vw              ≈ 67.81px @2560vp, 50.84px @1920vp */
 .header-inner {
     font-family: "DM Sans", Arial, sans-serif;
     font-weight: 400;
@@ -238,17 +240,20 @@ a {
     -webkit-font-smoothing: antialiased;
     font-size: 16px;
     box-sizing: border-box;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     align-items: center;
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: calc(87.5vw - 15px);
+    max-width: 100%;
+    height: 2.649vw;
 }
 
+/* Logo width: 6.875vw = 176px @2560vp, 132px @1920vp */
 .logo {
     display: flex;
-    width: 5.5em;
+    width: 6.875vw;
     flex-shrink: 0;
 }
 
@@ -263,7 +268,7 @@ a {
 .nav {
     display: none;
     align-items: center;
-    gap: var(--spacing-6);
+    gap: 1.875vw; /* 48px @2560vp (1440p): 48 ÷ 2560 = 1.875vw */
 }
 
 @media (min-width: 992px) {
@@ -287,16 +292,18 @@ a {
         align-items: center;
         justify-content: center;
     }
+
     .desk {
         display: none !important;
     }
 }
 
+/* Nav links: 25.6px font / 41.5938px height @2560vp (1440p) → 1vw / 1.625 */
 .nav-link {
     font-family: "DM Sans", Arial, sans-serif;
     font-weight: 400;
-    font-size: inherit;
-    line-height: 130%;
+    font-size: 1vw;
+    line-height: 1.625;
     color: #f0f0f2;
     text-decoration: none;
     display: inline-block;
@@ -309,18 +316,26 @@ a {
     color: #ffffff;
 }
 
+/* Header pill button – fluid sizing from 1440p reference:
+   Pill   218.578 × 67.8125px @2560vp → 8.538vw × 2.649vw
+   Font   25.6px @2560vp              → 1vw
+   Circle 57.5938px @2560vp            → 2.25vw
+   Arrow  25.5938px @2560vp            → ~1vw
+   Circle inset from pill edges = (2.649vw - 2.25vw)/2 = 0.1995vw per side */
 .header-inner .btn {
     font-family: "DM Sans", Arial, sans-serif;
-    font-size: inherit;
+    font-size: 1vw;
     font-weight: 400;
-    line-height: 130%;
-    color: rgb(0, 0, 0);
+    line-height: 1.625;
+    color: rgb(17, 17, 19);
     background: #ffffff;
-    padding: var(--spacing-2) var(--spacing-6);
-    margin: 0px;
+    /* padding: vertical matches circle inset, right matches circle inset,
+       left provides remaining space to hit 8.538vw total width */
+    padding: 0.1995vw 0.1995vw 0.1995vw 1.1vw;
+    margin: 0;
     border: 0px none rgb(255, 255, 255);
     border-radius: 999px;
-    gap: clamp(6px, 0.7vw, 14px);
+    gap: 0.7vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -328,44 +343,56 @@ a {
     z-index: auto;
     overflow: hidden;
     opacity: 1;
-    width: auto;
-    height: auto;
+    width: 8.538vw;
+    height: 2.649vw;
     box-sizing: border-box;
     transition: background 0.3s ease;
 }
 
+/* Circle: 2.25vw = 57.59px @2560vp, 43.2px @1920vp */
 .header-inner .btn .btn-icon-box {
-    background: #000000;
+    background: rgb(17, 17, 19);
+    width: 2.25vw;
+    height: 2.25vw;
+    border-radius: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
+/* Arrow icons inside header circle: ~1vw = 25.6px @2560vp */
+.header-inner .btn .btn-icon,
+.header-inner .btn .btn-icon-hover {
+    width: 1vw;
+    height: 1vw;
+}
+
+/* Text wrap height = line-height in em to keep the text-roll animation correct */
 .header-inner .btn .btn-text-wrap {
-    height: 1.3em;
+    height: 1.625em;
 }
 
 /* ===== Hero Section ===== */
+/* Height: 1025px @1440p → corrected to 80.64vh (browser chrome reduces usable vh) */
 .hero {
     padding: 0;
     background: #1e1d21;
     position: relative;
     overflow: hidden;
-    min-height: 100svh;
+    height: 80.64vh;
+    min-height: 500px; /* Safety floor on very short viewports */
     display: flex;
-    align-items: center;
+    align-items: flex-end; /* Anchor content to bottom edge */
 }
 
 
 .hero-container {
     position: relative;
     z-index: 2;
-    padding: var(--spacing-20) var(--spacing-6);
+    /* 80px from marquee bar below → 80÷1440 = 5.556vh
+       Horizontal padding retains existing left/right gutter */
+    padding: 0 var(--spacing-6) 5.556vh;
     width: 100%;
     pointer-events: none;
-}
-
-@media (min-width: 769px) {
-    .hero-container {
-        padding: clamp(100px, 15vw, 300px) var(--spacing-6);
-    }
 }
 
 
@@ -414,7 +441,7 @@ a {
     line-height: 1.1;
     letter-spacing: -0.03em;
     color: #f0f0f2;
-    margin: 0 0 var(--spacing-8) 0;
+    margin: 0 0 1.667vh 0; /* 24px above CTA → 24÷1440 = 1.667vh */
     text-align: left;
     text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.4);
 }
@@ -470,49 +497,42 @@ a {
 .hero-cta .btn-arrow {
     display: inline-flex;
     align-items: center;
-    gap: clamp(6px, 0.7vw, 14px);
     font-family: "DM Sans", Arial, sans-serif;
-    font-size: clamp(14px, 1.4vw, 28px);
+    font-size: 1vw;
     font-weight: 400;
     line-height: 1.625;
-    color: rgb(0, 0, 0);
+    color: rgb(17, 17, 19);
     background: #ffffff;
-    padding: clamp(3px, 0.3vw, 7px) clamp(4px, 0.35vw, 9px) clamp(3px, 0.3vw, 7px) clamp(14px, 1.4vw, 28px);
+    padding: 0.1995vw 0.1995vw 0.1995vw 1.1vw;
     border: 0px none rgb(255, 255, 255);
     border-radius: 999px;
-    width: auto;
-    height: auto;
+    gap: 0.7vw;
+    width: 8.538vw;
+    height: 2.649vw;
     box-sizing: border-box;
     justify-content: space-between;
     position: relative;
     overflow: hidden;
     transition: background 0.3s ease;
-    max-width: 420px;
 }
 
 .hero-cta .btn-arrow .btn-icon-box {
-    background: #000000;
+    background: rgb(17, 17, 19);
+    width: 2.25vw;
+    height: 2.25vw;
+    border-radius: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
-@media (min-width: 481px) {
-    .hero-cta .btn-arrow {
-        width: clamp(164px, 15vw, 320px);
-    }
+.hero-cta .btn-arrow .btn-icon,
+.hero-cta .btn-arrow .btn-icon-hover {
+    width: 1vw;
+    height: 1vw;
 }
-
 
 .hero-cta .btn-arrow .btn-text-wrap {
     height: 1.625em;
-    /* Specific height for the roll based on line-height */
-}
-
-.hero-cta .btn-arrow svg {
-    width: clamp(28px, 2.5vw, 52px);
-    height: clamp(28px, 2.5vw, 52px);
-    background: var(--color-white);
-    border-radius: 50%;
-    padding: clamp(6px, 0.4vw, 10px);
-    color: var(--color-black);
 }
 
 
@@ -1403,14 +1423,14 @@ a {
 }
 
 .btn-icon-hover {
-    transform: translateX(-140%);
+    transform: translateX(-180%);
     /* Hidden off-screen left, extra % for white gap */
 }
 
 /* Hover: first arrow exits right, second arrow slides in from left */
 .btn:hover .btn-icon,
 .btn-arrow:hover .btn-icon {
-    transform: translateX(155%);
+    transform: translateX(180%);
     /* Exits right with gap */
 }
 
@@ -1428,43 +1448,77 @@ a {
 
 .btn:not(:hover) .btn-icon-hover,
 .btn-arrow:not(:hover) .btn-icon-hover {
-    transform: translateX(-145%);
+    transform: translateX(-180%);
 }
 
-/* ===== Go Back Button ===== */
+/* ===== Go Back Button — matches header "Let's talk" pill exactly ===== */
+/* Pill 8.538vw × 2.649vw | font 1vw | circle 2.25vw | inset 0.1995vw */
 .btn-back {
     display: inline-flex;
     align-items: center;
-    gap: clamp(8px, 0.78vw + 0.18px, 12px);
     font-family: "DM Sans", Arial, sans-serif;
-    font-size: clamp(19.2px, 1vw + 0.15px, 25.6px);
+    font-size: 1vw;
     font-weight: 400;
     line-height: 1.625;
-    color: rgb(0, 0, 0);
-    background: #e5e7eb;
-    padding: clamp(3.84px, 0.2vw + 0.03px, 5.12px) clamp(19.2px, 1vw + 0.15px, 25.6px) clamp(3.84px, 0.2vw + 0.03px, 5.12px) clamp(4.8px, 0.25vw + 0.04px, 6.4px);
-    border: 0px none transparent;
-    border-radius: clamp(38.4px, 2vw + 0.3px, 51.2px);
+    color: rgb(17, 17, 19);
+    background: #ffffff;
+    /* Circle on LEFT: right pad is large, left pad is the 0.1995vw inset */
+    padding: 0.1995vw 1.1vw 0.1995vw 0.1995vw;
+    border: 0px none rgb(255, 255, 255);
+    border-radius: 999px;
+    gap: 0.7vw;
+    width: 8.538vw;
+    height: 2.649vw;
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
     transition: background 0.3s ease;
     text-decoration: none;
-    width: fit-content;
 }
 
+/* Circle: 2.25vw = 57.59px @2560vp */
+.btn-back .btn-icon-box {
+    background: rgb(17, 17, 19);
+    width: 2.25vw;
+    height: 2.25vw;
+    border-radius: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+}
+
+/* Arrow icons: 1vw = 25.6px @2560vp */
+.btn-back .btn-icon,
+.btn-back .btn-icon-hover {
+    position: absolute;
+    width: 1vw;
+    height: 1vw;
+    object-fit: contain;
+    transition: none;
+}
+
+.btn-back:hover .btn-icon,
+.btn-back:hover .btn-icon-hover {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Text wrap: matches line-height */
 .btn-back .btn-text-wrap {
-    height: 1.3em;
+    height: 1.625em;
     overflow: hidden;
     position: relative;
     display: block;
+    flex: 1;
 }
 
 .btn-back .btn-text {
     white-space: nowrap;
     transform: translateY(0);
+    transition: none;
 }
-
 
 .btn-back .btn-text-hover {
     position: absolute;
@@ -1472,8 +1526,13 @@ a {
     left: 0;
     white-space: nowrap;
     transform: translateY(100%);
+    transition: none;
 }
 
+.btn-back:hover .btn-text,
+.btn-back:hover .btn-text-hover {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
 .btn-back:hover .btn-text {
     transform: translateY(-100%);
@@ -1483,50 +1542,37 @@ a {
     transform: translateY(0);
 }
 
-.btn-back .btn-icon-box {
-    position: relative;
-    height: 2.2em;
-    width: 2.2em;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #040404;
-    border-radius: 50%;
-    flex-shrink: 0;
+.btn-back:not(:hover) .btn-text {
+    transform: translateY(0);
 }
 
-.btn-back .btn-icon,
-.btn-back .btn-icon-hover {
-    position: absolute;
-    width: calc(100% / 3.36);
-    height: calc(100% / 3.36);
-    object-fit: contain;
-    /* Transition only during hover to prevent "rolling back" on mouse out */
-    transition: none;
+.btn-back:not(:hover) .btn-text-hover {
+    transform: translateY(100%);
 }
 
-.btn-back:hover .btn-icon,
-.btn-back:hover .btn-icon-hover {
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Base state: Arrow 1 visible in center, Arrow 2 hidden on the right */
+/* Base: Arrow 1 centered, Arrow 2 hidden right → rolls LEFT on hover */
 .btn-back .btn-icon {
     transform: translateX(0);
 }
 
 .btn-back .btn-icon-hover {
-    transform: translateX(400%);
+    transform: translateX(180%);
 }
 
-/* Hover state: Both roll to the LEFT */
 .btn-back:hover .btn-icon {
-    transform: translateX(-400%);
+    transform: translateX(-180%);
 }
 
 .btn-back:hover .btn-icon-hover {
     transform: translateX(0);
+}
+
+.btn-back:not(:hover) .btn-icon {
+    transform: translateX(0);
+}
+
+.btn-back:not(:hover) .btn-icon-hover {
+    transform: translateX(180%);
 }
 
 /* ===== Case Study Hero Section ===== */
@@ -1823,9 +1869,11 @@ a {
 
 .marquee-track {
     display: flex;
-    gap: 10rem; /* Increased gap for better spacing */
+    gap: 10rem;
+    /* Increased gap for better spacing */
     white-space: nowrap;
-    animation: marquee 60s linear infinite; /* Slower for readability */
+    animation: marquee 60s linear infinite;
+    /* Slower for readability */
 }
 
 .marquee-item {
@@ -1833,8 +1881,13 @@ a {
 }
 
 @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 @media (max-width: 1024px) {
@@ -1844,6 +1897,7 @@ a {
         text-align: center;
         gap: 1.5rem;
     }
+
     .marquee-label-wrap {
         padding-left: 0;
     }
