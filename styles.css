@@ -382,6 +382,7 @@ a {
     min-height: 500px; /* Safety floor on very short viewports */
     display: flex;
     align-items: flex-end; /* Anchor content to bottom edge */
+    isolation: isolate;
 }
 
 
@@ -1645,14 +1646,17 @@ a {
     border-radius: 0;
     overflow: hidden;
     background: #111113;
-    padding: 0;
+    padding: clamp(2rem, 8vw, 6rem);
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cs-hero__thumb-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
     display: block;
     border-radius: 0;
 }
@@ -1845,12 +1849,14 @@ a {
     align-items: center;
     width: 100%;
     position: relative;
+    z-index: 10;
     padding: 1.5em 0;
     background-color: #161618;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     overflow: hidden;
     gap: 3rem;
+    isolation: isolate;
 }
 
 .marquee-label-wrap {
@@ -1863,21 +1869,45 @@ a {
 .marquee-wrap {
     overflow: hidden;
     display: flex;
-    width: 100%;
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    flex: 1;
+    min-width: 0;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
 .marquee-track {
     display: flex;
-    gap: 10rem;
-    /* Increased gap for better spacing */
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0;
     white-space: nowrap;
-    animation: marquee 60s linear infinite;
-    /* Slower for readability */
+    will-change: transform;
+    animation: marquee 40s linear infinite;
 }
 
 .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
     font-weight: 500;
+    color: #f0f0f2;
+    padding: 0 2.5rem;
+}
+
+.marquee-item::after {
+    content: '·';
+    margin-left: 2.5rem;
+    opacity: 0.35;
+    font-size: 1.4em;
+    line-height: 1;
+}
+
+.marquee-item:last-child::after {
+    display: none;
+}
+
+.marquee-label {
+    color: #f0f0f2;
 }
 
 @keyframes marquee {
