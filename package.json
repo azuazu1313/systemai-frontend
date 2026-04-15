@@ -1,0 +1,14 @@
+{
+  "name": "system-ai-website",
+  "version": "1.0.0",
+  "description": "System AI - AI workflows that delete busywork for ops-heavy SMBs",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.11"
+  }
+}
