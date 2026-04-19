@@ -2150,4 +2150,10 @@ a {
     .stats-image img {
         border-radius: clamp(10px, 3vw, 14px);
     }
+
+    .process-card {
+        min-height: auto;
+        padding: clamp(18px, 4.8vw, 24px);
+        gap: clamp(10px, 2.8vw, 14px);
+    }
 }
