@@ -2024,11 +2024,11 @@ a {
     }
 
     .hero-title {
-        font-size: clamp(2.6rem, 11vw, 3.4rem);
+        font-size: clamp(2.5rem, 10.6vw, 3.25rem);
         line-height: 0.98;
         letter-spacing: -0.03em;
         margin-bottom: clamp(18px, 4vw, 24px);
-        max-width: 11ch;
+        max-width: 11.6ch;
         text-wrap: balance;
     }
 
