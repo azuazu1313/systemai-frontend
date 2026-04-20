@@ -293,6 +293,37 @@ a {
     .desk {
         display: none !important;
     }
+
+    .menu-btn .menu-icon {
+        position: relative;
+        width: clamp(24px, 6.6vw, 28px);
+        height: clamp(18px, 5.3vw, 22px);
+        display: block;
+    }
+
+    .menu-btn .menu-line {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: currentColor;
+        border-radius: 999px;
+        transform-origin: center;
+        transition: top 0.35s ease, transform 0.35s ease, opacity 0.25s ease;
+    }
+
+    .menu-btn .menu-line:nth-child(1) {
+        top: 0;
+    }
+
+    .menu-btn .menu-line:nth-child(2) {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .menu-btn .menu-line:nth-child(3) {
+        top: calc(100% - 2px);
+    }
 }
 
 /* Nav links: 25.6px font / 41.5938px height @2560vp (1440p) → 1vw / 1.625 */
@@ -311,6 +342,104 @@ a {
 
 .nav-link:hover {
     color: #ffffff;
+}
+
+/* Keep text "Let's talk" link mobile-only inside hamburger menu */
+.nav-link-talk {
+    display: none;
+}
+
+/* Mobile full-screen menu overlay */
+@media (max-width: 991px) {
+    .nav-link-talk {
+        display: inline-block;
+    }
+
+    .header::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: #0b0b0f;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        z-index: 4999;
+        transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+    }
+
+    .header.menu-open {
+        z-index: 5000;
+    }
+
+    .header.menu-open::before {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.5s ease;
+    }
+
+    .header .common-wrap {
+        position: relative;
+        z-index: 5002;
+    }
+
+    .header .nav {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        z-index: 5001;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: clamp(14px, 4.2vw, 24px);
+        padding: calc(env(safe-area-inset-top, 0px) + clamp(66px, 18vw, 92px)) 0 clamp(16px, 5vw, 32px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(8px);
+        will-change: opacity, transform;
+        transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s linear 0.5s;
+    }
+
+    .header.menu-open .logo,
+    .header.menu-open .menu-btn {
+        position: relative;
+        z-index: 5003;
+    }
+
+    .header.menu-open .nav {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .header.menu-open .nav-link {
+        font-size: clamp(30px, 10vw, 54px);
+        line-height: 1.14;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: #f0f0f2;
+    }
+
+    .header.menu-open .menu-btn .menu-line:nth-child(1) {
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+    }
+
+    .header.menu-open .menu-btn .menu-line:nth-child(2) {
+        opacity: 0;
+        transform: translateY(-50%) scaleX(0.2);
+    }
+
+    .header.menu-open .menu-btn .menu-line:nth-child(3) {
+        top: 50%;
+        transform: translateY(-50%) rotate(-45deg);
+    }
+
+    body.nav-locked {
+        overflow: hidden;
+    }
 }
 
 /* Header pill button – fluid sizing from 1440p reference:
@@ -2149,7 +2278,7 @@ a {
         height: clamp(2.25rem, 10vw, 2.75rem);
     }
 
-    .stats-headline {
+    .stats-headline {npm
         font-size: clamp(2.3rem, 10.4vw, 3.2rem);
         line-height: 1.02;
         letter-spacing: -0.03em;
