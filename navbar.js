@@ -15,28 +15,13 @@
       nav.appendChild(talkLink);
     }
 
-    if (!button.querySelector('.menu-icon-open')) {
+    if (!button.querySelector('.menu-icon')) {
       button.innerHTML =
-        '<svg class="menu-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
-        '<path d="M4 6h16M4 12h16M4 18h16"></path>' +
-        '</svg>' +
-        '<svg class="menu-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
-        '<path d="M6 6l12 12M18 6L6 18"></path>' +
-        '</svg>';
-    } else if (!button.querySelector('.menu-icon-close')) {
-      var closeSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      closeSvg.setAttribute('class', 'menu-icon-close');
-      closeSvg.setAttribute('width', '24');
-      closeSvg.setAttribute('height', '24');
-      closeSvg.setAttribute('viewBox', '0 0 24 24');
-      closeSvg.setAttribute('fill', 'none');
-      closeSvg.setAttribute('stroke', 'currentColor');
-      closeSvg.setAttribute('stroke-width', '2');
-      closeSvg.setAttribute('aria-hidden', 'true');
-      var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      p.setAttribute('d', 'M6 6l12 12M18 6L6 18');
-      closeSvg.appendChild(p);
-      button.appendChild(closeSvg);
+        '<span class="menu-icon" aria-hidden="true">' +
+        '<span class="menu-line"></span>' +
+        '<span class="menu-line"></span>' +
+        '<span class="menu-line"></span>' +
+        '</span>';
     }
 
     function setOpen(isOpen) {
