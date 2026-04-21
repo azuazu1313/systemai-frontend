@@ -893,6 +893,11 @@ a {
     object-fit: cover;
 }
 
+.case-study-card:not(.case-study-card-large) .case-study-image>img.srama-logo-fit {
+    object-fit: contain;
+    padding: 8%;
+}
+
 .case-study-card-large .case-study-image {
     aspect-ratio: 2 / 1;
     background-color: #263237;
