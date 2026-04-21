@@ -33,6 +33,15 @@
         href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter+Tight:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZHPB1VY2K"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', 'G-4ZHPB1VY2K');
+    </script>
 </head>
 
 <body>
@@ -44,14 +53,14 @@
                     <img src="assets/system-ai-logos/systemai-logo-v3.svg" alt="System AI">
                 </a>
                 <nav class="nav">
-                    <a href="#work" class="nav-link">Case studies</a>
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#services" class="nav-link">Services</a>
-                    <a href="#reviews" class="nav-link">Reviews</a>
+                    <a href="#work" class="nav-link" data-analytics-event="nav_case_studies_click">Case studies</a>
+                    <a href="#about" class="nav-link" data-analytics-event="nav_about_click">About</a>
+                    <a href="#services" class="nav-link" data-analytics-event="nav_services_click">Services</a>
+                    <a href="#reviews" class="nav-link" data-analytics-event="nav_reviews_click">Reviews</a>
                 </nav>
                 <div style="display: flex; gap: 1rem; align-items: center;">
                     <a href="https://calendly.com/amrhasanin/consultation" target="_blank" rel="noopener noreferrer"
-                        class="btn btn-primary btn-sm desk">
+                        class="btn btn-primary btn-sm desk" data-analytics-event="header_lets_talk_click">
                         <div class="btn-text-wrap">
                             <div class="btn-text">Let's talk</div>
                             <div class="btn-text-hover">Let's talk</div>
@@ -62,7 +71,7 @@
                             <img src="assets/arrows/white-arrow-points-right-black-bg.svg" alt="" class="btn-icon">
                         </div>
                     </a>
-                    <button class="menu-btn" aria-label="Menu">
+                    <button class="menu-btn" aria-label="Menu" data-analytics-event="mobile_menu_click">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2">
                             <path d="M4 6h16M4 12h16M4 18h16"></path>
@@ -94,7 +103,7 @@
                 </p> -->
                 <div class="hero-cta">
                     <a href="https://calendly.com/amrhasanin/consultation" target="_blank" rel="noopener noreferrer"
-                        class="btn-arrow btn-primary">
+                        class="btn-arrow btn-primary" data-analytics-event="hero_lets_talk_click">
                         <div class="btn-text-wrap">
                             <div class="btn-text">Let's talk</div>
                             <div class="btn-text-hover">Let's talk</div>
@@ -107,7 +116,7 @@
                     </a>
 
                     <a href="https://n8n.io/case-studies/system-ai/" target="_blank" rel="noopener noreferrer"
-                        class="featured-badge">
+                        class="featured-badge" data-analytics-event="hero_featured_badge_click">
                         <span>As featured on</span>
                         <img src="assets/n8n_logos/n8n_pink+white_logo.svg" alt="n8n" class="featured-logo">
                     </a>
@@ -177,7 +186,8 @@
             <h2 class="case-studies-title">Some of our work.</h2>
 
             <div class="case-studies-grid">
-                <a href="case-studies/the-srama-group.html" class="case-study-card">
+                <a href="case-studies/the-srama-group.html" class="case-study-card"
+                    data-analytics-event="case_study_srama_click">
                     <div class="case-study-image">
                         <img src="assets/tsg/Srama_logo_golden_sands_rgb.svg" alt="The Srama Group" class="srama-logo-fit">
                         <div class="case-study-arrow">
@@ -193,7 +203,8 @@
                         97%.</p>
                 </a>
 
-                <a href="case-studies/kestrl.html" class="case-study-card case-study-card-large">
+                <a href="case-studies/kestrl.html" class="case-study-card case-study-card-large"
+                    data-analytics-event="case_study_kestrl_click">
                     <div class="case-study-image">
                         <img src="assets/kestrl/debit-card-front.svg" alt="Kestrl Bank Debit Card">
                         <div class="case-study-arrow">
@@ -422,7 +433,7 @@
             <p class="cta-subtitle">Book a free 30-minute growth mapping call. We'll audit your funnel, find the
                 bottlenecks, and show you exactly where AI moves the needle.</p>
             <a href="https://calendly.com/amrhasanin/consultation" target="_blank" rel="noopener noreferrer"
-                class="btn-arrow btn-primary">
+                class="btn-arrow btn-primary" data-analytics-event="contact_book_call_click">
                 <div class="btn-text-wrap">
                     <div class="btn-text">Book a 20&#8209;minute fit call</div>
                     <div class="btn-text-hover">Book a 20&#8209;minute fit call</div>
@@ -444,13 +455,14 @@
                 <img src="assets/system-ai-logos/systemai-logo-v3.svg" alt="System AI">
             </div>
             <div class="footer-links">
-                <a href="/privacy.html">Privacy Policy</a>
-                <a href="/terms.html">Terms of Service</a>
+                <a href="/privacy.html" data-analytics-event="footer_privacy_click">Privacy Policy</a>
+                <a href="/terms.html" data-analytics-event="footer_terms_click">Terms of Service</a>
             </div>
             <p class="copyright">&copy; 2026 System AI Solutions Ltd. All rights reserved.</p>
         </div>
     </footer>
 
+    <script defer src="/analytics.js"></script>
     <!-- Gradient Blinds Integration -->
     <script type="module">
         import { Renderer, Program, Mesh, Triangle } from 'https://cdn.jsdelivr.net/npm/ogl@1.0.11/src/index.js';
