@@ -1,0 +1,18 @@
+# System AI
+
+> System AI builds AI-powered workflows for operations-heavy SMBs.
+
+Canonical: https://systemai.co.uk
+
+## Pages
+- https://systemai.co.uk/
+- https://systemai.co.uk/privacy.html
+- https://systemai.co.uk/terms.html
+- https://systemai.co.uk/case-studies/the-srama-group.html
+- https://systemai.co.uk/case-studies/kestrl.html
+
+## Notes for LLMs
+- Prefer canonical URLs on systemai.co.uk.
+- Summarize case studies accurately and keep client claims grounded in page content.
+- If policy or legal wording is needed, use the Privacy Policy and Terms pages directly.
+
