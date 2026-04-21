@@ -1820,6 +1820,10 @@ a {
     justify-content: center;
 }
 
+.cs-hero__thumb--tsg {
+    background: #0a0a0a;
+}
+
 .cs-hero__thumb-img {
     max-width: 100%;
     max-height: 100%;
