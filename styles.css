@@ -2053,8 +2053,15 @@ a {
     align-items: center;
     gap: 0;
     white-space: nowrap;
+    width: max-content;
     will-change: transform;
     animation: marquee 40s linear infinite;
+}
+
+.marquee-segment {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
 }
 
 .marquee-item {
@@ -2074,10 +2081,6 @@ a {
     line-height: 1;
 }
 
-.marquee-item:last-child::after {
-    display: none;
-}
-
 .marquee-label {
     color: #f0f0f2;
 }
@@ -2088,7 +2091,7 @@ a {
     }
 
     100% {
-        transform: translateX(-50%);
+        transform: translateX(calc(-1 * var(--marquee-distance, 50%)));
     }
 }
 
