@@ -138,12 +138,6 @@
                 <span class="marquee-item">Kestrl</span>
                 <span class="marquee-item">The Srama Group</span>
                 <span class="marquee-item">TakeSpotlight</span>
-                <span class="marquee-item">Hasad</span>
-                <span class="marquee-item">Montera Real Estate</span>
-                <span class="marquee-item">Bank Albilad</span>
-                <span class="marquee-item">Kestrl</span>
-                <span class="marquee-item">The Srama Group</span>
-                <span class="marquee-item">TakeSpotlight</span>
             </div>
         </div>
     </section>
@@ -778,6 +772,8 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             const wrapper = document.getElementById("gradient-blinds-wrapper");
+            const marqueeWrap = document.querySelector(".marquee-wrap");
+            const marqueeTrack = document.querySelector(".marquee-track");
 
             // Initialize GradientBlinds with user provided options
             new GradientBlinds(wrapper, {
@@ -794,6 +790,53 @@
                 distortAmount: 0,
                 shineDirection: "none"
             });
+
+            if (marqueeWrap && marqueeTrack) {
+                const templateItems = Array.from(marqueeTrack.children).map((item) =>
+                    item.cloneNode(true)
+                );
+
+                const buildMarqueeSegment = () => {
+                    const segment = document.createElement("div");
+                    segment.className = "marquee-segment";
+                    templateItems.forEach((item) => {
+                        segment.appendChild(item.cloneNode(true));
+                    });
+                    return segment;
+                };
+
+                const renderMarquee = () => {
+                    if (templateItems.length === 0) return;
+
+                    marqueeTrack.innerHTML = "";
+
+                    const firstSegment = buildMarqueeSegment();
+                    marqueeTrack.appendChild(firstSegment);
+
+                    const segmentWidth = firstSegment.scrollWidth;
+                    const wrapWidth = marqueeWrap.clientWidth;
+
+                    if (!segmentWidth || !wrapWidth) return;
+
+                    const copiesNeeded = Math.max(2, Math.ceil((wrapWidth * 2) / segmentWidth) + 1);
+
+                    for (let i = 1; i < copiesNeeded; i += 1) {
+                        const clone = buildMarqueeSegment();
+                        clone.setAttribute("aria-hidden", "true");
+                        marqueeTrack.appendChild(clone);
+                    }
+
+                    const pixelsPerSecond = 90;
+                    marqueeTrack.style.setProperty("--marquee-distance", `${segmentWidth}px`);
+                    marqueeTrack.style.setProperty(
+                        "--marquee-duration",
+                        `${segmentWidth / pixelsPerSecond}s`
+                    );
+                };
+
+                renderMarquee();
+                new ResizeObserver(renderMarquee).observe(marqueeWrap);
+            }
         });
     </script>
     <script src="/navbar.js"></script>
