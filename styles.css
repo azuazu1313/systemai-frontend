@@ -2070,6 +2070,35 @@ a {
     border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+.cs-featured-badge {
+    align-self: flex-start;
+    margin-top: var(--spacing-3);
+    margin-left: 0;
+    padding: var(--spacing-3) var(--spacing-4);
+    border-left: 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 1em;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.cs-featured-badge span {
+    font-size: var(--font-size-xs);
+}
+
+.cs-featured-badge .featured-logo-window {
+    --featured-logo-height: clamp(24px, 2.1vw, 34px);
+    width: clamp(104px, 9vw, 148px);
+}
+
+.cs-featured-logo-track {
+    animation: none;
+}
+
+.cs-featured-badge:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.24);
+}
+
 /* Right column — body */
 .cs-details__body {
     flex: 1;
