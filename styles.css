@@ -703,6 +703,57 @@ a {
     width: auto;
 }
 
+.featured-logo-window {
+    --featured-logo-height: clamp(24px, 3vw, 52px);
+    display: block;
+    height: var(--featured-logo-height);
+    width: clamp(116px, 13vw, 220px);
+    overflow: hidden;
+    position: relative;
+}
+
+.featured-logo-track {
+    display: flex;
+    flex-direction: column;
+    animation: featured-logo-roll 6s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+.featured-logo-frame {
+    display: flex;
+    align-items: center;
+    height: var(--featured-logo-height);
+    flex: 0 0 var(--featured-logo-height);
+}
+
+.featured-logo-frame .featured-logo {
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.featured-logo-third-bridge {
+    width: 100%;
+    height: auto;
+    max-height: 72%;
+}
+
+@keyframes featured-logo-roll {
+
+    0%,
+    42% {
+        transform: translateY(0);
+    }
+
+    50%,
+    92% {
+        transform: translateY(calc(-1 * var(--featured-logo-height)));
+    }
+
+    100% {
+        transform: translateY(calc(-2 * var(--featured-logo-height)));
+    }
+}
+
 @media (max-width: 768px) {
     .featured-badge {
         margin-left: 0;
@@ -2223,6 +2274,11 @@ a {
         height: clamp(24px, 7.5vw, 34px);
     }
 
+    .featured-logo-window {
+        --featured-logo-height: clamp(24px, 7.5vw, 34px);
+        width: clamp(132px, 42vw, 180px);
+    }
+
     .marquee-section {
         flex-direction: column;
         align-items: stretch;
@@ -2290,7 +2346,7 @@ a {
         height: clamp(2.25rem, 10vw, 2.75rem);
     }
 
-    .stats-headline {npm
+    .stats-headline {
         font-size: clamp(2.3rem, 10.4vw, 3.2rem);
         line-height: 1.02;
         letter-spacing: -0.03em;
