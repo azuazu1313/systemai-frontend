@@ -710,6 +710,8 @@ a {
 
 .featured-logo-window {
     --featured-logo-height: clamp(24px, 3vw, 52px);
+    --featured-logo-gap: clamp(18px, 2vw, 32px);
+    --featured-logo-step: calc(var(--featured-logo-height) + var(--featured-logo-gap));
     display: block;
     height: var(--featured-logo-height);
     width: clamp(116px, 13vw, 220px);
@@ -720,6 +722,7 @@ a {
 .featured-logo-track {
     display: flex;
     flex-direction: column;
+    gap: var(--featured-logo-gap);
     animation: featured-logo-roll 6s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
 }
 
@@ -751,11 +754,11 @@ a {
 
     50%,
     92% {
-        transform: translateY(calc(-1 * var(--featured-logo-height)));
+        transform: translateY(calc(-1 * var(--featured-logo-step)));
     }
 
     100% {
-        transform: translateY(calc(-2 * var(--featured-logo-height)));
+        transform: translateY(calc(-2 * var(--featured-logo-step)));
     }
 }
 
@@ -2438,6 +2441,7 @@ a {
 
     .featured-logo-window {
         --featured-logo-height: clamp(24px, 7.5vw, 34px);
+        --featured-logo-gap: clamp(28px, 9vw, 42px);
         width: clamp(132px, 42vw, 180px);
     }
 
